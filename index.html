@@ -123,13 +123,15 @@ input[type=range]::-moz-range-track{height:14px;background:linear-gradient(90deg
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#ffffff;border:3px solid var(--accent);box-shadow:0 2px 0 var(--border-ctrl)}
 input[type=range]:disabled{opacity:.45;cursor:not-allowed}
 input[type=checkbox],input[type=radio]{width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex:none}
-.opt{display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 14px;border:2px solid var(--border-ctrl);border-radius:12px;margin:8px 0;cursor:pointer;background:var(--card);color:var(--fg);font-weight:600;font-size:.9375rem;box-shadow:0 3px 0 var(--lip);transition:background-color .12s ease,transform .08s ease,box-shadow .08s ease}
+.opt{display:flex;align-items:center;gap:10px;min-height:46px;padding:8px 14px;border:2px solid var(--border-ctrl);border-radius:12px;margin:8px 0;cursor:pointer;background:var(--card);color:var(--fg);font-weight:600;font-size:.9375rem;box-shadow:0 3px 0 var(--lip);transition:background-color .12s ease,border-color .12s ease,transform .08s ease,box-shadow .08s ease}
 .opt:hover{background:var(--surface-muted);transform:translateY(-1px);box-shadow:0 4px 0 var(--lip)}
 .opt:active{transform:translateY(2px);box-shadow:0 1px 0 var(--lip)}
+.opt:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--fg);box-shadow:0 3px 0 var(--accent-lip)}
 .lyr-grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:8px}
 @media(min-width:480px){.lyr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.lyr-grid label{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 10px;border:2px solid var(--border-ctrl);border-radius:10px;background:var(--surface-muted);cursor:pointer;font-size:.8125rem;font-weight:600;box-shadow:0 2px 0 var(--lip);transition:transform .08s ease}
-.lyr-grid label:hover{background:var(--card);transform:translateY(-1px)}
+.lyr-grid label{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 10px;border:2px solid var(--border);border-radius:10px;background:var(--surface-muted);cursor:pointer;font-size:.8125rem;font-weight:600;box-shadow:0 2px 0 var(--lip);opacity:.65;transition:transform .08s ease,opacity .15s ease,border-color .15s ease,background-color .15s ease}
+.lyr-grid label:has(input:checked){background:var(--card);border-color:var(--border-ctrl);opacity:1}
+.lyr-grid label:hover{transform:translateY(-1px)}
 .telemetry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;background:transparent;border:none;border-radius:14px;overflow:visible;width:100%}
 @media(min-width:640px){.telemetry-grid.tg-4col{grid-template-columns:repeat(4,minmax(0,1fr))}.telemetry-grid.tg-6col{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:1024px){.telemetry-grid.tg-6col{grid-template-columns:repeat(6,minmax(0,1fr));padding:10px 14px;background:var(--surface-muted);border-top:2px solid var(--border-ctrl);border-radius:0}}
@@ -138,14 +140,17 @@ input[type=checkbox],input[type=radio]{width:18px;height:18px;accent-color:var(-
 .telemetry-cell.cell-ok{border-color:#052e16;box-shadow:0 3px 0 #052e16}
 .telemetry-cell.cell-err{border-color:#450a0a;box-shadow:0 3px 0 #450a0a}
 .telemetry-cell.cell-ok .num,.telemetry-cell.cell-err .num{background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.28)}
-.editorial-rule{border-top:2px solid var(--fg);padding-top:16px}
-.ledger-row{border-top:1px solid var(--border);padding:14px 0}
-details.glossary-item{border-bottom:1px solid var(--border)}
-details.glossary-item summary{min-height:44px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:600;padding:8px 4px;list-style:none}
+.editorial-rule{border-top:2px solid var(--border-ctrl);padding-top:18px}
+.ledger-row{background:var(--card);border:2px solid var(--border-ctrl);border-radius:16px;padding:clamp(14px,2vw,18px);box-shadow:0 4px 0 var(--lip);transition:transform .12s ease,box-shadow .12s ease}
+.ledger-row:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--lip)}
+details.glossary-item{background:var(--card);border:2px solid var(--border-ctrl);border-radius:12px;margin-bottom:8px;box-shadow:0 3px 0 var(--lip);overflow:hidden;transition:transform .1s ease}
+details.glossary-item[open]{border-color:var(--accent);box-shadow:0 3px 0 var(--accent-lip)}
+details.glossary-item summary{min-height:46px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;padding:10px 14px;list-style:none;background:var(--surface-muted)}
+details.glossary-item[open] summary{background:var(--accent);color:#ffffff}
 details.glossary-item summary::-webkit-details-marker{display:none}
-details.glossary-item summary::after{content:"+";font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--fg-muted);font-size:1.1rem}
-details.glossary-item[open] summary::after{content:"−"}
-details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size:.875rem}
+details.glossary-item summary::after{content:"+";font-family:'JetBrains Mono',monospace;font-weight:800;width:24px;height:24px;border-radius:999px;background:var(--card);color:var(--fg);border:2px solid var(--border-ctrl);display:inline-flex;align-items:center;justify-content:center;font-size:1rem;line-height:1}
+details.glossary-item[open] summary::after{content:"−";border-color:var(--accent-lip)}
+details.glossary-item div{padding:12px 14px;color:var(--fg);font-size:.875rem;border-top:2px solid var(--border-ctrl)}
 #tourSpot{display:none;position:fixed;z-index:68;pointer-events:none;border-radius:10px;border:3px solid var(--accent);box-shadow:0 0 0 4px var(--card),0 0 0 9999px rgba(12,17,29,.62);transition:top .22s ease,left .22s ease,width .22s ease,height .22s ease}
 #tour{display:none;position:fixed;z-index:70;width:min(350px,calc(100vw - 24px));box-shadow:0 14px 34px rgba(0,0,0,.32);border:2px solid var(--accent);transition:top .22s ease,left .22s ease}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -171,6 +176,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
 <main class="px-4 py-5 max-w-[1480px] mx-auto">
 
 <section id="sim" class="tab act space-y-4" data-layout="full3d">
+ <div id="misBanner" class="surface-accent" style="display:none"></div>
  <!-- Layout Switcher Bar -->
  <div class="card py-2.5 px-3.5 flex flex-wrap items-center justify-between gap-2">
   <div class="text-xs sm:text-sm font-bold uppercase tracking-wider muted">Pilih Opsi Tata Letak Simulasi:</div>
@@ -463,7 +469,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
   <h2 class="text-2xl sm:text-3xl">Risiko Tinggal di Dekat Data Center AI</h2>
   <p class="text-base leading-relaxed">Data center AI adalah bangunan yang menampung ribuan chip. Chip-chip itu memakai listrik dan air dalam jumlah besar serta menghasilkan panas dan suara terus-menerus. Dampaknya paling terasa bagi rumah yang dekat. Buka tab SIMULASI, geser <b>jarak rumah</b>, <b>jam</b>, dan jenis pendingin, lalu lihat bagaimana angkanya berubah. Angka di simulasi adalah perkiraan edukatif, bukan hasil ukur lapangan.</p>
  </div>
- <div class="grid md:grid-cols-2 gap-x-8 gap-y-2">
+ <div class="grid md:grid-cols-2 gap-4">
   <div class="ledger-row"><h3 class="text-xl mb-1">🔊 Kebisingan</h3><p class="text-sm muted">Kipas, chiller, dan genset berbunyi 24 jam. Pendingin udara paling berisik, cairan lebih tenang. Dengung frekuensi rendah sulit diredam dan bisa mengganggu tidur, terutama malam hari saat suasana sekitar sepi. Dalam simulasi, kebisingan turun sekitar 6 dB tiap jarak digandakan.</p></div>
   <div class="ledger-row"><h3 class="text-xl mb-1">🌡️ Panas buangan</h3><p class="text-sm muted">Hampir semua listrik berubah menjadi panas yang dibuang ke udara sekitar. Rumah di dekatnya bisa merasakan udara lebih hangat, apalagi siang hari ketika suhu luar sudah tinggi dan pendingin bekerja lebih keras. Malam lebih adem, tetapi suara jadi lebih mengganggu.</p></div>
   <div class="ledger-row"><h3 class="text-xl mb-1">💧 Pemakaian air</h3><p class="text-sm muted">Menara pendingin penguapan menghabiskan air dalam jumlah besar. Bila berebut dengan sumur atau PDAM warga, muka air tanah bisa turun dan air bersih jadi langka, terutama di musim kemarau. Pendingin tertutup atau air daur ulang mengurangi risikonya.</p></div>
@@ -716,7 +722,7 @@ function graph2(){const c=$('gr'),w=c.clientWidth||320,h=c.clientHeight||220,dp=
  const lt=S.hist[n-1],lx=X(n-1),ly=Y(lt);x.fillStyle=lineCol(lt);x.beginPath();x.arc(lx,ly,5.5,0,7);x.fill();x.strokeStyle=l?'#ffffff':'#0f172a';x.lineWidth=2;x.stroke();
  x.font='700 13px JetBrains Mono,monospace';x.fillStyle=lineCol(lt);x.fillText(lt.toFixed(0)+'°C',Math.min(w-padR-42,Math.max(padL+4,lx-18)),ly<40?ly+20:ly-10)}
 /* ---------- UI ---------- */
-LAY.forEach((l,i)=>{const lb=document.createElement('label');lb.innerHTML=`<input type="checkbox" checked> <span>${l[0]}</span>`;
+LAY.forEach((l,i)=>{const lb=document.createElement('label');lb.innerHTML=`<input type="checkbox" checked><span class="w-3 h-3 rounded-full border border-black/30 flex-none" style="background:${l[1]}"></span><span>${l[0]}</span>`;
  lb.firstChild.onchange=e=>G[i].visible=e.target.checked;$('lyr').appendChild(lb)});
 $('nav').onclick=e=>{const b=e.target.closest('button[data-t]');if(!b)return;const t=b.dataset.t;document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('act',s.id==t));
  [...$('nav').children].forEach(c=>c.classList.toggle('on',c==b));if(t=='sim')size()};
@@ -741,18 +747,37 @@ function graph(){const c=$('gr'),x=c.getContext('2d'),w=c.width,h=c.height,Y=t=>
  x.fillStyle='#ff2a2a';x.font='12px JetBrains Mono';x.fillText('Throttling 85°C',6,Y(85)-4);
  x.strokeStyle='#00f0ff';x.lineWidth=3;x.beginPath();S.hist.forEach((t,i)=>{const px=i/59*w;i?x.lineTo(px,Y(t)):x.moveTo(px,Y(t))});x.stroke()}
 
+function confetti(){
+ const cols=['#2563eb','#16a34a','#fbbf24','#dc2626','#a855f7','#06b6d4'];
+ for(let i=0;i<36;i++){
+  const d=document.createElement('div');
+  const sz=8+Math.random()*8,ang=Math.random()*6.28,sp=80+Math.random()*180,dx=Math.cos(ang)*sp,dy=Math.sin(ang)*sp-120;
+  Object.assign(d.style,{position:'fixed',left:'50%',top:'35%',width:sz+'px',height:sz+'px',background:cols[i%cols.length],border:'2px solid #0f172a',borderRadius:i%2?'50%':'3px',pointerEvents:'none',zIndex:99,transition:'transform .85s cubic-bezier(.15,.85,.35,1),opacity .85s ease'});
+  document.body.appendChild(d);
+  requestAnimationFrame(()=>{d.style.transform=`translate(${dx}px,${dy+160}px) rotate(${Math.random()*520}deg)`;d.style.opacity='0'});
+  setTimeout(()=>d.remove(),900);
+ }
+}
 /* ---------- Missions ---------- */
 const MS=[{n:'LLM Training Overclock',d:'Watt 1000W, pakai Liquid/Rendam, suhu < 80°C.',ok:()=>S.watt>=1000&&S.mode!='air'&&S.temp<80},
 {n:'Super Dingin Rendam',d:'Mode Rendam, beban 600W, suhu < 45°C.',ok:()=>S.mode=='imm'&&S.watt>=600&&S.temp<45},
 {n:'Gelombang Panas 35°C',d:'Air 35°C, beban 800W, suhu < 82°C.',ok:()=>S.amb>=35&&S.watt>=800&&S.temp<82}];
 const M={act:-1,p:0,done:new Set()};
-function mRender(){$('mgrid').innerHTML=MS.map((m,i)=>{const dn=M.done.has(i),ac=M.act==i,cls=dn?'surface-ok':ac?'surface-accent':'card';return `<div class="${cls} flex flex-col justify-between"><div><h3 class="text-xl mb-1" style="color:${dn?'var(--st-ok)':ac?'var(--accent-fg)':'var(--fg)'}">Misi ${i+1}: ${m.n}</h3><p class="text-sm muted">${m.d} Bertahan 10 detik.</p></div>
+function mRender(){
+ $('mgrid').innerHTML=MS.map((m,i)=>{const dn=M.done.has(i),ac=M.act==i,cls=dn?'surface-ok':ac?'surface-accent':'card',pct=dn?100:ac?Math.min(100,M.p*10):0;return `<div class="${cls} flex flex-col justify-between"><div><h3 class="text-xl mb-1" style="color:${dn?'var(--st-ok)':ac?'var(--accent-fg)':'var(--fg)'}">Misi ${i+1}: ${m.n}</h3><p class="text-sm muted">${m.d} Bertahan 10 detik.</p><div class="mt-3 h-3 rounded-full bg-black/20 border border-black/25 overflow-hidden"><div id="mb${i}" class="h-full bg-[#4ade80] transition-all duration-100" style="width:${pct}%"></div></div></div>
  <div class="pt-3 mt-3 border-t border-[var(--border)] flex items-center justify-between gap-2"><div class="num text-base" style="color:${dn?'var(--st-ok)':ac?'var(--accent-fg)':'var(--fg)'}" id="mp${i}">${dn?'✅ SELESAI':(ac?M.p.toFixed(1):0)+'s / 10s'}</div>
  <button class="btn ${ac?'on':''}" onclick="mToggle(${i})">${ac?'Batal':'Mulai'}</button></div></div>`}).join('');
- $('stars').textContent=`⭐ ${M.done.size} / 3 Bintang`}
-window.mToggle=i=>{M.act=M.act==i?-1:i;M.p=0;mRender()};
+ $('stars').textContent=`⭐ ${M.done.size} / 3 Bintang`;
+ const mb=$('misBanner');
+ if(M.act>=0){
+  const m=MS[M.act];mb.style.display='block';
+  mb.innerHTML=`<div class="flex flex-wrap items-center justify-between gap-3"><div><div class="font-bold text-base">🎯 Misi ${M.act+1}: ${m.n}</div><div class="text-xs sm:text-sm muted">${m.d} Bertahan 10 detik.</div></div><div class="flex items-center gap-3 w-full sm:w-auto"><div class="flex-1 sm:w-44 h-3.5 rounded-full bg-black/25 border border-white/30 overflow-hidden"><div id="mbTop" class="h-full bg-[#4ade80] transition-all duration-100" style="width:${Math.min(100,M.p*10)}%"></div></div><span class="readout-pill" id="mpTop">${M.p.toFixed(1)}s / 10s</span><button class="btn !min-h-[36px] !py-1 !px-3 !text-xs" onclick="mToggle(${M.act})">Batal</button></div></div>`;
+ }else mb.style.display='none';
+}
+window.mToggle=i=>{const starting=M.act!=i;M.act=starting?i:-1;M.p=0;mRender();if(starting)document.querySelector('#nav [data-t=sim]').click()};
 function mTick(dt){if(M.act<0)return;if(MS[M.act].ok())M.p+=dt;else M.p=0;
- if(M.p>=10){M.done.add(M.act);M.act=-1;M.p=0;mRender()}else $('mp'+M.act).textContent=M.p.toFixed(1)+'s / 10s'}
+ if(M.p>=10){M.done.add(M.act);M.act=-1;M.p=0;mRender();confetti();const mb=$('misBanner');mb.className='surface-ok';mb.style.display='block';mb.innerHTML=`<div class="flex flex-wrap items-center justify-between gap-2"><div class="font-bold text-base">✅ SELESAI! ⭐ ${M.done.size} / 3 Bintang</div><button class="btn !min-h-[36px] !py-1 !px-3 !text-xs" onclick="document.querySelector('#nav [data-t=mis]').click()">TANTANGAN MISI</button></div>`}
+ else{const pct=Math.min(100,M.p*10).toFixed(1)+'%',txt=M.p.toFixed(1)+'s / 10s';if($('mp'+M.act))$('mp'+M.act).textContent=txt;if($('mb'+M.act))$('mb'+M.act).style.width=pct;if($('mpTop'))$('mpTop').textContent=txt;if($('mbTop'))$('mbTop').style.width=pct;$('misBanner').className='surface-accent'}}
 mRender();
 
 /* ---------- Quiz ---------- */
@@ -762,10 +787,11 @@ const QZ=[['Rumus suhu chip yang benar?',['Suhu Air + (Watt × F)','Watt ÷ F','
 ['Udara, 500 W, ruang 25°C. Suhu chip?',['75°C','100°C','125°C','85°C'],1],
 ['Immersion, 500 W, air 30°C. Suhu chip?',['40°C','35°C','60°C','530°C'],0],
 ['Apa yang terjadi bila chip melewati 85°C?',['Thermal throttling (performa turun)','Chip makin cepat','Chip menjadi dingin','Listrik hemat'],0]];
-function qRender(){$('qz').innerHTML=QZ.map((q,i)=>`<div class="surface-inset"><b class="block mb-2">${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"> <span>${o}</span></label>`).join('')}</div>`).join('');$('qFb').textContent=''}
+function qRender(){$('qz').innerHTML=QZ.map((q,i)=>`<div class="surface-inset"><b class="block mb-2">${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"> <span>${o}</span></label>`).join('')}</div>`).join('');$('qFb').textContent='';$('qFb').className='hidden'}
 $('qChk').onclick=()=>{let s=0;QZ.forEach((q,i)=>{const r=document.querySelector(`input[name=q${i}]:checked`);const ok=r&&+r.value==q[2];if(ok)s++;
- document.querySelectorAll(`input[name=q${i}]`).forEach(e=>{const p=e.parentElement,isAns=+e.value==q[2],isWrg=e.checked&&!isAns;p.style.background=isAns?'#166534':isWrg?'#991b1b':'';p.style.borderColor=isAns?'#14532d':isWrg?'#7f1d1d':'';p.style.color=isAns||isWrg?'#ffffff':''})});
- $('qFb').textContent=`Skor: ${s}/6 — `+(s==6?'SEMPURNA! Master pendingin chip!':s>=4?'SANGAT BAGUS! Sedikit lagi.':'Perlu evaluasi ulang. Baca tab Rumus dulu.')};
+ document.querySelectorAll(`input[name=q${i}]`).forEach(e=>{const p=e.parentElement,isAns=+e.value==q[2],isWrg=e.checked&&!isAns;p.style.background=isAns?'#166534':isWrg?'#b91c1c':'';p.style.borderColor=isAns?'#052e16':isWrg?'#450a0a':'';p.style.color=isAns||isWrg?'#ffffff':''})});
+ $('qFb').className=(s==6?'surface-ok':s>=4?'surface-warn':'surface-err')+' mt-4 font-bold text-lg text-center';
+ $('qFb').textContent=`Skor: ${s}/6 — `+(s==6?'SEMPURNA! Master pendingin chip!':s>=4?'SANGAT BAGUS! Sedikit lagi.':'Perlu evaluasi ulang. Baca tab Rumus dulu.');if(s==6)confetti()};
 $('qRst').onclick=qRender;qRender();
 
 /* ---------- Extra ---------- */
