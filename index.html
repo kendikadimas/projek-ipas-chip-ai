@@ -176,10 +176,10 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
  <!-- Main Interactive Workbench -->
  <div id="simBench" class="grid lg:grid-cols-12 gap-4 items-start">
   <!-- Left Column (Used in Opsi 2: 3-Column Mode) -->
-  <div id="colLeft" class="lg:col-span-3 space-y-3 lg:sticky lg:top-14" style="display:none"></div>
+  <div id="colLeft" class="order-2 lg:order-1 lg:col-span-3 space-y-3 lg:sticky lg:top-14" style="display:none"></div>
 
   <!-- Center Column (Always holds 3D Viewport so WebGL never moves) -->
-  <div id="colCenter" class="lg:col-span-12 space-y-4">
+  <div id="colCenter" class="order-1 lg:order-2 lg:col-span-12 space-y-4">
    <div id="blkView" class="viewport-frame">
     <div class="p-2.5 bg-[var(--card)] space-y-2">
      <div class="flex flex-wrap items-center justify-between gap-1.5 pb-2 border-b border-[var(--border)]">
@@ -223,15 +223,15 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
   </div>
 
   <!-- Right Column (Used in Opsi 1 & Opsi 2) -->
-  <div id="colRight" class="lg:col-span-4 space-y-3 lg:sticky lg:top-14" style="display:none"></div>
+  <div id="colRight" class="order-3 lg:order-3 lg:col-span-4 space-y-3 lg:sticky lg:top-14" style="display:none"></div>
  </div>
 
- <!-- Full-Width Bottom Rows for Opsi 1 & Opsi 3 -->
- <div id="rowSub" class="grid md:grid-cols-2 gap-4 items-stretch"></div>
+ <!-- Full-Width Bottom Rows for Opsi 1 & Opsi 3 (Graph first, then Day/Night & Impact) -->
  <div id="rowFullBottom" class="grid lg:grid-cols-12 gap-4 items-start" style="display:none">
   <div id="fullBotLeft" class="lg:col-span-8 space-y-4"></div>
   <div id="fullBotRight" class="lg:col-span-4 space-y-4"></div>
  </div>
+ <div id="rowSub" class="grid md:grid-cols-2 gap-4 items-stretch"></div>
 
  <!-- Movable Component Blocks (Placed by setSimLayout) -->
  <div style="display:none">
@@ -287,7 +287,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
 
   <div id="blkMath" class="surface-accent"><h3 class="text-base mb-1.5" style="color:var(--accent-fg)">Live Math Steps</h3><div class="num text-xs sm:text-sm space-y-1.5"><div id="m1"></div><div id="m2"></div></div></div>
   <div id="blkLyr" class="card"><h3 class="text-base mb-2">Visibilitas Layer</h3><div id="lyr" class="lyr-grid text-sm"></div></div>
-  <div id="blkGr" class="card"><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Grafik Suhu Realtime <span class="block text-xs font-normal muted mt-0.5 tracking-normal">(garis merah = throttling 85°C)</span></h3><canvas id="gr" width="1400" height="420" class="w-full rounded-md border border-[var(--border)]"></canvas></div>
+  <div id="blkGr" class="card"><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Grafik Suhu Realtime <span class="block text-xs font-normal muted mt-0.5 tracking-normal">(garis merah = throttling 85°C)</span></h3><canvas id="gr" style="height:clamp(220px,34vh,300px)" class="w-full block rounded-md border border-[var(--border)]"></canvas></div>
   <div id="blkDn" class="card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">☀️ Siang vs 🌙 Malam <span class="block text-xs font-normal muted mt-0.5 tracking-normal">dibandingkan dengan pengaturan sekarang</span></h3></div><div id="dn" class="text-sm flex-1 flex flex-col justify-between"></div></div>
   <div id="blkRk" class="card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Dampak ke Warga Sekitar (live) <span class="block text-xs font-normal muted mt-0.5 tracking-normal">simulasi edukatif, skala 5.000 chip</span></h3></div><div id="rk" class="text-sm flex-1 flex flex-col justify-between"></div></div>
  </div>
@@ -678,20 +678,20 @@ function dnRender(){const f=calc().f,cl=h=>{const a=ambOf(h);return{a,tc:a+S.wat
  $('dn').innerHTML=`<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${cell('☀️','Siang 15.00',D,'surface-day','--day-bd')}${cell('🌙','Malam 03.00',N,'surface-night','--night-bd')}</div><p class="mt-3 pt-2.5 border-t border-[var(--border)] text-xs leading-relaxed muted">Siang: chip ${(D.tc-N.tc).toFixed(0)}°C lebih panas dibanding malam karena udara luar lebih panas, jadi pendingin bekerja lebih keras. Malam: chip lebih adem, tetapi batas bising lebih ketat dan panas buangan lebih menumpuk di sekitar rumah karena udara malam kurang bercampur.</p>`}
 $('eHome').onclick=()=>{setView('2d');EC.position.set(-S.dist/8-2,2.6,15);EO.target.set(14,5,0)};
 $('eDrone').onclick=()=>{setView('2d');EC.position.set(-42,28,52);EO.target.set(2,4,0)};
-function graph2(){const c=$('gr');if(c.width!=1400||c.height!=420){c.width=1400;c.height=420}const x=c.getContext('2d'),w=1400,h=420,l=document.body.classList.contains('light'),mx=Math.max(150,...S.hist.map(v=>Math.ceil(v/30)*30)),padT=34,padB=28,Y=v=>h-padB-(Math.min(mx,Math.max(0,v))/mx)*(h-padT-padB),X=i=>78+i/59*(w-104),n=S.hist.length;
+function graph2(){const c=$('gr'),w=c.clientWidth||320,h=c.clientHeight||220,dp=Math.min(2,devicePixelRatio||1),rw=Math.round(w*dp),rh=Math.round(h*dp);if(c.width!=rw||c.height!=rh){c.width=rw;c.height=rh}const x=c.getContext('2d');x.setTransform(dp,0,0,dp,0,0);const l=document.body.classList.contains('light'),mx=Math.max(150,...S.hist.map(v=>Math.ceil(v/30)*30)),padL=40,padR=12,padT=24,padB=18,Y=v=>h-padB-(Math.min(mx,Math.max(0,v))/mx)*(h-padT-padB),X=i=>padL+i/59*(w-padL-padR),n=S.hist.length;
  x.fillStyle=l?'#f8fafc':'#0f172a';x.fillRect(0,0,w,h);
- [[0,65,l?'rgba(21,128,61,.08)':'rgba(74,222,128,.08)'],[65,85,l?'rgba(180,83,9,.09)':'rgba(251,191,36,.09)'],[85,mx,l?'rgba(185,28,28,.10)':'rgba(248,113,113,.12)']].forEach(z=>{x.fillStyle=z[2];x.fillRect(78,Y(z[1]),w-94,Y(z[0])-Y(z[1]))});
- x.font='600 22px JetBrains Mono,monospace';x.lineWidth=1.5;for(let v=0;v<=mx;v+=30){x.strokeStyle=l?'rgba(100,116,139,.25)':'rgba(148,163,184,.22)';x.beginPath();x.moveTo(78,Y(v));x.lineTo(w-16,Y(v));x.stroke();x.fillStyle=l?'#334155':'#cbd5e1';x.fillText(v+'°',14,Y(v)+8)}
- x.strokeStyle=l?'#dc2626':'#ff4d4d';x.lineWidth=2.5;x.setLineDash([10,6]);x.beginPath();x.moveTo(78,Y(85));x.lineTo(w-16,Y(85));x.stroke();x.setLineDash([]);x.fillStyle=l?'#b91c1c':'#ff6b6b';x.fillText('Throttling 85°C',90,Y(85)-10);
- x.fillStyle=l?'#475569':'#94a3b8';x.fillText('- - suhu udara',w-240,28);
+ [[0,65,l?'rgba(21,128,61,.08)':'rgba(74,222,128,.08)'],[65,85,l?'rgba(180,83,9,.09)':'rgba(251,191,36,.09)'],[85,mx,l?'rgba(185,28,28,.10)':'rgba(248,113,113,.12)']].forEach(z=>{x.fillStyle=z[2];x.fillRect(padL,Y(z[1]),w-padL-padR,Y(z[0])-Y(z[1]))});
+ x.font='600 12px JetBrains Mono,monospace';x.lineWidth=1;for(let v=0;v<=mx;v+=30){x.strokeStyle=l?'rgba(100,116,139,.25)':'rgba(148,163,184,.22)';x.beginPath();x.moveTo(padL,Y(v));x.lineTo(w-padR,Y(v));x.stroke();x.fillStyle=l?'#334155':'#cbd5e1';x.fillText(v+'°',6,Y(v)+4)}
+ x.strokeStyle=l?'#dc2626':'#ff4d4d';x.lineWidth=1.8;x.setLineDash([6,4]);x.beginPath();x.moveTo(padL,Y(85));x.lineTo(w-padR,Y(85));x.stroke();x.setLineDash([]);x.fillStyle=l?'#b91c1c':'#ff6b6b';x.fillText('Throttling 85°C',padL+6,Y(85)-6);
+ x.fillStyle=l?'#475569':'#94a3b8';x.fillText('- - suhu udara',w-padR-106,16);
  if(n<2)return;
- x.strokeStyle=l?'#475569':'#94a3b8';x.lineWidth=2.5;x.setLineDash([6,6]);x.beginPath();(S.ha||[]).forEach((a,i)=>i?x.lineTo(X(i),Y(a)):x.moveTo(X(i),Y(a)));x.stroke();x.setLineDash([]);
+ x.strokeStyle=l?'#475569':'#94a3b8';x.lineWidth=1.8;x.setLineDash([4,4]);x.beginPath();(S.ha||[]).forEach((a,i)=>i?x.lineTo(X(i),Y(a)):x.moveTo(X(i),Y(a)));x.stroke();x.setLineDash([]);
  const g=x.createLinearGradient(0,padT,0,h-padB);g.addColorStop(0,l?'rgba(29,78,216,.18)':'rgba(56,189,248,.28)');g.addColorStop(1,'rgba(29,78,216,0)');
  x.beginPath();S.hist.forEach((t,i)=>i?x.lineTo(X(i),Y(t)):x.moveTo(X(i),Y(t)));x.lineTo(X(n-1),Y(0));x.lineTo(X(0),Y(0));x.closePath();x.fillStyle=g;x.fill();
  const lineCol=t=>t<65?(l?'#15803d':'#39ff14'):t<85?(l?'#d97706':'#ffe600'):(l?'#dc2626':'#ff2a2a');
- x.lineWidth=5;x.lineJoin='round';x.lineCap='round';for(let i=1;i<n;i++){x.strokeStyle=lineCol(S.hist[i]);x.beginPath();x.moveTo(X(i-1),Y(S.hist[i-1]));x.lineTo(X(i),Y(S.hist[i]));x.stroke()}
- const lt=S.hist[n-1],lx=X(n-1),ly=Y(lt);x.fillStyle=lineCol(lt);x.beginPath();x.arc(lx,ly,9,0,7);x.fill();x.strokeStyle=l?'#ffffff':'#0f172a';x.lineWidth=2.5;x.stroke();
- x.font='700 24px JetBrains Mono,monospace';x.fillStyle=lineCol(lt);x.fillText(lt.toFixed(0)+'°C',Math.min(w-125,Math.max(85,lx-36)),ly<60?ly+32:ly-16)}
+ x.lineWidth=3;x.lineJoin='round';x.lineCap='round';for(let i=1;i<n;i++){x.strokeStyle=lineCol(S.hist[i]);x.beginPath();x.moveTo(X(i-1),Y(S.hist[i-1]));x.lineTo(X(i),Y(S.hist[i]));x.stroke()}
+ const lt=S.hist[n-1],lx=X(n-1),ly=Y(lt);x.fillStyle=lineCol(lt);x.beginPath();x.arc(lx,ly,5.5,0,7);x.fill();x.strokeStyle=l?'#ffffff':'#0f172a';x.lineWidth=2;x.stroke();
+ x.font='700 13px JetBrains Mono,monospace';x.fillStyle=lineCol(lt);x.fillText(lt.toFixed(0)+'°C',Math.min(w-padR-42,Math.max(padL+4,lx-18)),ly<40?ly+20:ly-10)}
 /* ---------- UI ---------- */
 LAY.forEach((l,i)=>{const lb=document.createElement('label');lb.innerHTML=`<input type="checkbox" checked> <span>${l[0]}</span>`;
  lb.firstChild.onchange=e=>G[i].visible=e.target.checked;$('lyr').appendChild(lb)});
@@ -842,22 +842,22 @@ function setSimLayout(m){
  cK.className='telemetry-cell'+(m=='2col'?' sm:col-span-2':'');
  if(m=='2col'){
   st.style.display='';cL.style.display='none';cR.style.display='';rS.style.display='';rFB.style.display='none';
-  cC.className='lg:col-span-8 space-y-4';cR.className='lg:col-span-4 space-y-4 lg:sticky lg:top-16';
+  cC.className='order-1 lg:order-2 lg:col-span-8 space-y-4';cR.className='order-3 lg:order-3 lg:col-span-4 space-y-4 lg:sticky lg:top-16';
   $('slotTopLeft').append($('tempCard'));$('slotTopRight').append(bm);
   $('slotCenterGr').append($('blkGr'));rS.append($('blkDn'),$('blkRk'));
   cR.append($('blkCtrl'),$('blkMath'),$('blkLyr'));
  }else if(m=='3col'){
   st.style.display='none';cL.style.display='';cR.style.display='';rS.style.display='none';rFB.style.display='none';
-  cC.className='lg:col-span-5 space-y-3 lg:sticky lg:top-14';cR.className='lg:col-span-4 space-y-3 lg:sticky lg:top-14';
+  cC.className='order-1 lg:order-2 lg:col-span-5 space-y-3 lg:sticky lg:top-14';cR.className='order-3 lg:order-3 lg:col-span-4 space-y-3 lg:sticky lg:top-14';
   cL.append($('blkCtrl'),$('blkMath'),$('blkLyr'));
   $('slotCenterGr').append($('blkGr'));
   cR.append($('tempCard'),bm,$('blkRk'),$('blkDn'));
  }else{
   st.style.display='none';cL.style.display='none';cR.style.display='none';rS.style.display='';rFB.style.display='';
-  cC.className='lg:col-span-12 space-y-4';
+  cC.className='order-1 lg:order-2 lg:col-span-12 space-y-4';
   $('dockLeft').append($('tempCard'));$('dockRight').append($('blkCtrl'));$('dockMetrics').append(bm);
-  rS.append($('blkDn'),$('blkRk'));
   $('fullBotLeft').append($('blkGr'));$('fullBotRight').append($('blkMath'),$('blkLyr'));
+  rS.append($('blkDn'),$('blkRk'));
  }
  size();posTour();
 }
