@@ -88,6 +88,7 @@ h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',sans-serif;letter-spacing:-.
  .ctx-bar .btn{width:auto;padding:6px 10px;font-size:.8125rem}
 }
 .tab{display:none}.tab.act{display:block}
+#sim[data-view="2d"] .only-3d,#sim[data-view="3d"] .only-2d{display:none!important}
 #viewWrap{position:relative;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface-muted);max-width:100%;overflow:hidden}
 #view{position:relative;width:100%;height:clamp(260px,46vh,520px);overflow:hidden;background:var(--surface-muted)}
 #sim[data-layout="3col"] #view{height:clamp(250px,42vh,380px)}
@@ -206,7 +207,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
      <div id="dockRight"></div>
     </div>
 
-    <div class="px-3.5 py-2 bg-[var(--surface-muted)] flex flex-col sm:flex-row sm:items-center gap-2.5">
+    <div class="only-3d px-3.5 py-2 bg-[var(--surface-muted)] flex flex-col sm:flex-row sm:items-center gap-2.5">
      <label for="ex" class="font-semibold text-sm whitespace-nowrap">Exploded View: <span class="num" id="exV">0</span>%</label>
      <input type="range" id="ex" min="0" max="100" value="0">
     </div>
@@ -231,7 +232,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
   <div id="fullBotLeft" class="lg:col-span-8 space-y-4"></div>
   <div id="fullBotRight" class="lg:col-span-4 space-y-4"></div>
  </div>
- <div id="rowSub" class="grid md:grid-cols-2 gap-4 items-stretch"></div>
+ <div id="rowSub" class="only-2d grid md:grid-cols-2 gap-4 items-stretch"></div>
 
  <!-- Movable Component Blocks (Placed by setSimLayout) -->
  <div style="display:none">
@@ -272,7 +273,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
     <div><label for="amb" class="flex justify-between text-sm font-medium"><span>Suhu Air/Ruang:</span><span class="num"><span id="aV"></span> °C</span></label><input type="range" id="amb" min="18" max="35" value="25"></div>
     <div><label for="spd" class="flex justify-between text-sm font-medium"><span>Kecepatan Pompa/Kipas:</span><span class="num"><span id="sV"></span>%</span></label><input type="range" id="spd" min="20" max="100" value="100"></div>
    </div>
-   <div class="pt-2 border-t border-[var(--border)] space-y-2">
+   <div class="only-2d pt-2 border-t border-[var(--border)] space-y-2">
     <div>
      <label for="hr" class="flex justify-between text-sm font-medium"><span>🕒 Jam:</span><span class="num" id="hV"></span></label>
      <input type="range" id="hr" min="0" max="24" step="0.25" value="13">
@@ -286,10 +287,10 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
   </div>
 
   <div id="blkMath" class="surface-accent"><h3 class="text-base mb-1.5" style="color:var(--accent-fg)">Live Math Steps</h3><div class="num text-xs sm:text-sm space-y-1.5"><div id="m1"></div><div id="m2"></div></div></div>
-  <div id="blkLyr" class="card"><h3 class="text-base mb-2">Visibilitas Layer</h3><div id="lyr" class="lyr-grid text-sm"></div></div>
+  <div id="blkLyr" class="only-3d card"><h3 class="text-base mb-2">Visibilitas Layer</h3><div id="lyr" class="lyr-grid text-sm"></div></div>
   <div id="blkGr" class="card"><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Grafik Suhu Realtime <span class="block text-xs font-normal muted mt-0.5 tracking-normal">(garis merah = throttling 85°C)</span></h3><canvas id="gr" style="height:clamp(220px,34vh,300px)" class="w-full block rounded-md border border-[var(--border)]"></canvas></div>
-  <div id="blkDn" class="card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">☀️ Siang vs 🌙 Malam <span class="block text-xs font-normal muted mt-0.5 tracking-normal">dibandingkan dengan pengaturan sekarang</span></h3></div><div id="dn" class="text-sm flex-1 flex flex-col justify-between"></div></div>
-  <div id="blkRk" class="card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Dampak ke Warga Sekitar (live) <span class="block text-xs font-normal muted mt-0.5 tracking-normal">simulasi edukatif, skala 5.000 chip</span></h3></div><div id="rk" class="text-sm flex-1 flex flex-col justify-between"></div></div>
+  <div id="blkDn" class="only-2d card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">☀️ Siang vs 🌙 Malam <span class="block text-xs font-normal muted mt-0.5 tracking-normal">dibandingkan dengan pengaturan sekarang</span></h3></div><div id="dn" class="text-sm flex-1 flex flex-col justify-between"></div></div>
+  <div id="blkRk" class="only-2d card flex flex-col justify-between"><div><h3 class="text-base pb-2 mb-2.5 border-b border-[var(--border)]">Dampak ke Warga Sekitar (live) <span class="block text-xs font-normal muted mt-0.5 tracking-normal">simulasi edukatif, skala 5.000 chip</span></h3></div><div id="rk" class="text-sm flex-1 flex flex-col justify-between"></div></div>
  </div>
 </section>
 
@@ -701,7 +702,7 @@ $('theme').onclick=()=>{const l=document.body.classList.toggle('light');document
 $('modes').onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;const m=b.dataset.m;S.mode=m;[...$('modes').children].forEach(c=>c.classList.toggle('on',c==b))};
 ['watt','amb','spd'].forEach(k=>{const f=()=>{S[k]=+$(k).value;$({watt:'wV',amb:'aV',spd:'sV'}[k]).textContent=S[k]};$(k).oninput=f;f()});
 $('ex').oninput=()=>{S.exT=$('ex').value/100;$('exV').textContent=$('ex').value};
-function setView(v){S.view=v;$('c2d').style.display='none';R.domElement.style.display='block';ctl.enabled=v=='3d';EO.enabled=v=='2d';$('hud').style.display=v=='2d'?'block':'none';$('lab').style.display=v=='3d'?'block':'none';$('b3d').classList.toggle('on',v=='3d');$('b2d').classList.toggle('on',v=='2d');$('envTools').classList.toggle('dim',v!='2d');$('chipTools').classList.toggle('dim',v!='3d')}
+function setView(v){S.view=v;$('sim').dataset.view=v;$('c2d').style.display='none';R.domElement.style.display='block';ctl.enabled=v=='3d';EO.enabled=v=='2d';$('hud').style.display=v=='2d'?'block':'none';$('lab').style.display=v=='3d'?'block':'none';$('b3d').classList.toggle('on',v=='3d');$('b2d').classList.toggle('on',v=='2d');$('envTools').classList.toggle('dim',v!='2d');$('chipTools').classList.toggle('dim',v!='3d');size();posTour()}
 $('b3d').onclick=()=>setView('3d');$('b2d').onclick=()=>setView('2d');
 $('pOrb').onclick=()=>{const o=AC();o.autoRotate=!o.autoRotate;$('pOrb').classList.toggle('on',o.autoRotate)};
 $('pBot').onclick=()=>{setView('3d');cam.position.set(0,-9,.01)};
@@ -828,7 +829,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')closeTour()});
 addEventListener('scroll',posTour,{passive:true});addEventListener('resize',posTour);
 $('hr').oninput=()=>S.hr=+$('hr').value;$('dist').oninput=()=>{S.dist=+$('dist').value;$('dV').textContent=S.dist};$('dist').oninput();
 $('hPlay').onclick=()=>{S.play=!S.play;$('hPlay').classList.toggle('on',S.play);$('hPlay').textContent=S.play?'⏸ Jeda':'▶ Putar Hari'};
-function clk(dt){if(S.play){S.hr=(S.hr+dt*.8)%24;$('hr').value=S.hr}const a=$('autoT').checked;$('amb').disabled=a;if(a&&S.amb!=ambOf(S.hr)){$('amb').value=ambOf(S.hr);$('amb').oninput()}$('hV').textContent=HN(S.hr)+' · '+pt(S.hr)}
+function clk(dt){if(S.play){S.hr=(S.hr+dt*.8)%24;$('hr').value=S.hr}const a=S.view=='2d'&&$('autoT').checked;$('amb').disabled=a;if(a&&S.amb!=ambOf(S.hr)){$('amb').value=ambOf(S.hr);$('amb').oninput()}$('hV').textContent=HN(S.hr)+' · '+pt(S.hr)}
 function rkRender(){const R=risk(),row=(ic,l,v,bad,n)=>`<div class="py-2 border-b border-[var(--border)]"><div class="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 text-xs sm:text-[13px] leading-snug"><span class="font-medium text-[var(--fg)]">${ic} ${l}:</span><b class="num whitespace-nowrap" style="color:${bad?'var(--st-err)':'var(--st-ok)'}">${v}</b></div><div class="muted text-[11px] leading-normal mt-0.5">${n}</div></div>`;
  const bad=R.noise>R.lim||R.rise>1.5,st=R.noise>R.lim+8||R.rise>2.5?'TERGANGGU':bad?'WASPADA':'AMAN',stCls=st=='TERGANGGU'?'surface-err':st=='WASPADA'?'surface-warn':'surface-ok';
  $('rk').innerHTML=`<div class="-mt-1">${row('🔊','Bising di rumah',R.noise.toFixed(0)+' dB(A)',R.noise>R.lim,'ambang '+(R.night?'malam':'siang')+' '+R.lim+' dB')+row('🌡️','Panas tambahan di sekitar rumah','+'+R.rise.toFixed(1)+' °C',R.rise>1.5,'udara luar '+S.amb+' → ±'+(S.amb+R.rise).toFixed(1)+' °C')+row('💧','Air pendingin (menara penguapan)',Math.round(R.water).toLocaleString('id-ID')+' L/hari',R.water>100000,'≈ kebutuhan '+Math.round(R.water/150).toLocaleString('id-ID')+' orang (150 L/hari)')+row('⚡','Daya fasilitas',R.P.toFixed(1)+' MW',R.P>5,'≈ '+Math.round(R.P*2000).toLocaleString('id-ID')+' rumah (rata-rata 0,5 kW)')}</div><div class="${stCls} font-bold text-sm !px-3.5 !py-2.5 mt-2.5 !rounded-lg flex items-baseline justify-between gap-2"><span>Status kenyamanan warga:</span><span class="num">${st}</span></div>`}
