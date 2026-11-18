@@ -54,8 +54,9 @@ h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',sans-serif;letter-spacing:-.
 .btn.on:hover{background:var(--accent-hover);color:#ffffff}
 .btn:focus-visible,input:focus-visible,summary:focus-visible,.opt:focus-within,a:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 .nav-wrap{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--border)}
-#nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px 16px}
-@media(min-width:640px){#nav{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px 12px}
+#nav .btn{padding:6px 8px;font-size:.75rem;min-width:0;word-break:break-word}
+@media(min-width:640px){#nav{grid-template-columns:repeat(3,minmax(0,1fr));padding:8px 16px}#nav .btn{padding:8px 12px;font-size:.8125rem}}
 @media(min-width:1024px){
  #nav{display:flex;flex-wrap:wrap;gap:4px;padding:0 16px}
  #nav .btn{width:auto;min-height:48px;border:none;border-bottom:3px solid transparent;border-radius:0;padding:10px 16px;background:transparent;color:var(--fg-muted);font-size:.8125rem;letter-spacing:.02em}
@@ -63,13 +64,14 @@ h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',sans-serif;letter-spacing:-.
  #nav .btn.on{color:#ffffff;background:var(--accent);border-bottom-color:var(--accent-hover);font-weight:700}
 }
 .grid>*{min-width:0;max-width:100%}
-.seg-switch{background:var(--surface-muted);padding:4px;border:1px solid var(--border);border-radius:8px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.seg-switch{background:var(--surface-muted);padding:4px;border:1px solid var(--border);border-radius:8px;display:grid;grid-template-columns:1fr;gap:4px}
+@media(min-width:380px){.seg-switch{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .seg-switch .btn{min-height:42px;min-width:0;border:1px solid transparent;border-radius:6px;background:transparent;padding:6px 4px;font-size:.75rem;line-height:1.15}
 @media(min-width:480px){.seg-switch .btn{padding:6px 8px;font-size:.8125rem}}
 .seg-switch .btn:hover{background:var(--card);border-color:var(--border)}
 .seg-switch .btn.on{background:var(--accent);color:#ffffff;border-color:var(--accent)}
 .seg-pair{background:var(--surface-muted);padding:3px;border:1px solid var(--border);border-radius:8px;display:inline-flex;flex-wrap:wrap;gap:3px;max-width:100%}
-.seg-pair .btn{border-color:transparent;background:transparent;min-width:0}
+.seg-pair .btn{border-color:transparent;background:transparent;min-width:0;padding:6px 10px;font-size:.8125rem}
 .seg-pair .btn.on{background:var(--accent);color:#ffffff}
 #layoutBar{display:grid;grid-template-columns:1fr;width:100%}
 @media(min-width:640px){#layoutBar{display:inline-flex;width:auto}}
@@ -226,14 +228,14 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
  <!-- Movable Component Blocks (Placed by setSimLayout) -->
  <div style="display:none">
   <div id="tempCard" class="surface-ok flex flex-col justify-between w-full">
-   <div id="tempDiv" class="grid grid-cols-2 gap-3 pb-2.5 border-b border-[var(--st-ok-bd)]">
+   <div id="tempDiv" class="grid grid-cols-2 gap-2.5 sm:gap-3 pb-2.5 border-b border-[var(--st-ok-bd)]">
     <div>
-     <div class="text-xs font-semibold uppercase tracking-wider muted">Suhu Chip AI</div>
-     <div class="num text-2xl sm:text-3xl mt-1" id="mT">--</div>
+     <div class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider muted">Suhu Chip AI</div>
+     <div class="num text-xl sm:text-3xl mt-1" id="mT">--</div>
     </div>
     <div>
-     <div class="text-xs font-semibold uppercase tracking-wider muted">Status Chip AI</div>
-     <div class="font-bold text-base sm:text-lg mt-1" id="mS">--</div>
+     <div class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider muted">Status Chip AI</div>
+     <div class="font-bold text-sm sm:text-lg mt-1 leading-tight break-words" id="mS">--</div>
     </div>
    </div>
    <div class="pt-2.5 text-xs sm:text-sm leading-snug"><b class="font-semibold">💡 Saran otomatis:</b> <span id="tip"></span></div>
