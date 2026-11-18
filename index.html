@@ -76,9 +76,17 @@ h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',sans-serif;letter-spacing:-.
 #layoutBar{display:grid;grid-template-columns:1fr;width:100%}
 @media(min-width:640px){#layoutBar{display:inline-flex;width:auto}}
 .viewport-frame{background:var(--card);border:1px solid var(--border-ctrl);border-radius:10px;overflow:hidden;max-width:100%}
-.ctx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;transition:opacity .15s ease;max-width:100%}
-.ctx-bar .btn{padding:6px 10px;font-size:.8125rem;min-height:40px}
-.ctx-bar.dim{opacity:.72}.ctx-bar.dim:hover{opacity:1}
+.ctx-bar{display:grid;gap:6px;width:100%;max-width:100%}
+#envTools{grid-template-columns:repeat(6,minmax(0,1fr))}
+#eHome,#eDrone{grid-column:span 3}
+#mDay,#mNight,#mHeat{grid-column:span 2}
+#chipTools{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ctx-bar .btn{padding:6px 8px;font-size:.75rem;min-height:40px;min-width:0;width:100%}
+.ctx-bar.dim{display:none}
+@media(min-width:640px){
+ .ctx-bar{display:flex;flex-wrap:wrap;align-items:center;width:auto}
+ .ctx-bar .btn{width:auto;padding:6px 10px;font-size:.8125rem}
+}
 .tab{display:none}.tab.act{display:block}
 #viewWrap{position:relative;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface-muted);max-width:100%;overflow:hidden}
 #view{position:relative;width:100%;height:clamp(260px,46vh,520px);overflow:hidden;background:var(--surface-muted)}
@@ -175,11 +183,11 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
    <div id="blkView" class="viewport-frame">
     <div class="p-2.5 bg-[var(--card)] space-y-2">
      <div class="flex flex-wrap items-center justify-between gap-1.5 pb-2 border-b border-[var(--border)]">
-      <div class="seg-pair">
+      <div class="seg-pair !grid grid-cols-2 w-full sm:!inline-flex sm:w-auto">
        <button class="btn" id="b3d">🔬 3D Chip</button><button class="btn on" id="b2d">🏘️ Lingkungan 3D</button>
       </div>
-      <div class="flex flex-wrap gap-1">
-       <button class="btn" id="pOrb">Orbit 360°</button><button class="btn" id="zIn">Zoom +</button><button class="btn" id="zOut">Zoom −</button>
+      <div class="grid grid-cols-3 w-full sm:w-auto sm:flex flex-wrap gap-1.5">
+       <button class="btn !px-2 !text-xs sm:!px-3 sm:!text-sm" id="pOrb">Orbit 360°</button><button class="btn !px-2 !text-xs sm:!px-3 sm:!text-sm" id="zIn">Zoom +</button><button class="btn !px-2 !text-xs sm:!px-3 sm:!text-sm" id="zOut">Zoom −</button>
       </div>
      </div>
      <div class="flex flex-wrap items-center justify-between gap-1.5">
@@ -257,7 +265,7 @@ details.glossary-item div{padding:0 4px 12px 4px;color:var(--fg-muted);font-size
    </div>
    <div>
     <div class="text-xs font-semibold uppercase tracking-wider muted mb-1.5">Preset Beban</div>
-    <div class="flex flex-wrap gap-1.5"><button class="btn" data-p="300,25,100">Idle</button><button class="btn" data-p="600,25,80">Inference</button><button class="btn" data-p="800,30,100">Training</button><button class="btn" data-p="1000,35,100">Overclock</button><button class="btn" id="auto">⚡ Auto-pilih pendingin</button></div>
+    <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-1.5"><button class="btn" data-p="300,25,100">Idle</button><button class="btn" data-p="600,25,80">Inference</button><button class="btn" data-p="800,30,100">Training</button><button class="btn" data-p="1000,35,100">Overclock</button><button class="btn col-span-2" id="auto">⚡ Auto-pilih pendingin</button></div>
    </div>
    <div class="space-y-2 pt-2 border-t border-[var(--border)]">
     <div><label for="watt" class="flex justify-between text-sm font-medium"><span>Watt Chip (TDP):</span><span class="num"><span id="wV"></span> W</span></label><input type="range" id="watt" min="300" max="1000" step="10" value="600"></div>
